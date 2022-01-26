@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>{{title}}</title>
+    <link rel='stylesheet' type='text/css' href='css/styles.css'>
+    <link rel='stylesheet' type='text/css' href='css/table.css'>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+</head>
+<body>
+<div id='header' class='simple_border'>
+    <p style='grid-row: 1;grid-column: 1'>
+        {{lorem_ipsum}}
+    </p>
+    <div style="width: 140px; height: 100%;grid-row: 1;grid-column: 2; margin-right: 20px; margin-left: 10px;">
+        <div class='x_y vertical_center' id='x_block'>
+            <h2 style='text-align: center; margin: 0; width: 100%;' class="vertical_center">Heading 1</h2>
+        </div>
+    </div>
+
+</div>
+<div id='main'>
+    <div id='second' class="main">{{lorem_ipsum}}</div>
+    <div id='third' class="main">
+        <div style="text-align: center;"><h1></h1></div>
+    </div>
+    <div id='fourth' class="main">{{lorem_ipsum}}</div>
+    <div id='fifth' class="main">
+    </div>
+    <div id='sixth' class="main">{{lorem_ipsum}}</div>
+</div>
+<div id='footer' class="simple_border">
+    <p>{{lorem_ipsum}}</p>
+    <div style="width: 140px; height: 100%;grid-row: 1;grid-column: 2; margin-right: 20px; margin-left: 10px">
+        <div class='x_y vertical_center' style="overflow: hidden">
+            <h2 style='text-align: center; width: 100%; margin:0; margin-left: 10px; ' class="vertical_center">Heading
+                2 </h2>
+        </div>
+    </div>
+</div>
+</body>
+</html>
