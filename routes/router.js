@@ -10,12 +10,34 @@ const lorem_ipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ph
     '        fermentum odio. Sed vel vulputate dolor. Morbi dolor lorem, aliquam at accumsan et, varius ac turpis. Aenean\n' +
     '        tristique id augue sed tempor. Maecenas vitae semper est.'
 
+const default_texture = 'conic-gradient(\n' +
+    '            from 45deg,\n' +
+    '            #020681 0,\n' +
+    '            #020681 90deg,\n' +
+    '            #000337 90deg,\n' +
+    '            #000337 180deg,\n' +
+    '            #0818ff 180deg,\n' +
+    '            #0818ff 270deg,\n' +
+    '            #0f9bfe 270deg,\n' +
+    '            #0f9bfe 360deg\n' +
+    '    )'
 
-/* GET admin page. */
+
+/* GET home page. */
 router.get('/', function (req, res, next) {
     const data = {
-        title: 'Admin page',
+        title: 'Лабораторана робота 4',
         lorem_ipsum: lorem_ipsum
+    }
+    res.render('index', data);
+});
+
+/* GET admin page. */
+router.get('/admin', function (req, res, next) {
+    const data = {
+        title: 'Admin page',
+        lorem_ipsum: lorem_ipsum,
+        default_texture: default_texture
     }
     res.render('admin', data);
 });

@@ -4,10 +4,10 @@
     <meta charset='UTF-8'>
     <title>{{title}}</title>
     <link rel='stylesheet' type='text/css' href='css/styles.css'>
-    <link rel='stylesheet' type='text/css' href='css/table.css'>
+    <link rel='stylesheet' type='text/css' href='css/admin.css'>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
 </head>
 <body>
 <div id='header' class='simple_border'>
@@ -23,11 +23,38 @@
 </div>
 <div id='main'>
     <div id='second' class="main">{{lorem_ipsum}}</div>
-    <div id='third' class="main">
-        <div style="text-align: center;"><h1></h1></div>
-    </div>
+    <div id='third' class="main"></div>
     <div id='fourth' class="main">{{lorem_ipsum}}</div>
     <div id='fifth' class="main">
+        <h2 class="white">Animation properties</h2>
+        <div id='properties' class="white">
+            <label for='buttons_color'>Buttons area color: </label>
+            <input id='buttons_color' type="text" value="pink">
+
+            <label for='messages_color'>Messages area color: </label>
+            <input id='messages_color' type="text" value="yellow">
+
+            <label for='fade'>Fade animation duration: </label>
+            <input id='fade' type="text" value="fast">
+
+            <label for='background'>Background css style: </label>
+            <textarea style="height: 200px; resize: vertical"
+                      id='background'>{{default_texture}}"</textarea>
+
+            <label for='speed'>Speed: </label>
+            <input id='speed' type="number" value="500">
+
+            <label for='step'>Step: </label>
+            <input id='step' type="number" value="20">
+
+            <label for="rendering">Rendering method:</label>
+            <select name="rendering" id="rendering">
+                <option value="non_canvas">NON canvas</option>
+                <option value="canvas">Canvas</option>
+            </select>
+
+            <input type="button" id='save_button' value='Save properties' style='grid-column: 1/span 2;'>
+        </div>
     </div>
     <div id='sixth' class="main">{{lorem_ipsum}}</div>
 </div>

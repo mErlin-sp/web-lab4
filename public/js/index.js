@@ -3,8 +3,11 @@ let start_button, stop_button, reload_button, anim, square
 let started = false
 //
 let angle = 90
-let dist = 20
+let step = 20
 let speed = 500
+let canvas_rendering = false
+//
+let fade_duration = 'slow'
 
 $(document).ready(function () {
     let work = $('#work')
@@ -14,6 +17,8 @@ $(document).ready(function () {
     reload_button = $('#reload_button').hide()
     square = $('#square')
 
+    get_properties()
+
     move_square_to_start()
     animate()
 
@@ -22,7 +27,7 @@ $(document).ready(function () {
     $('#play_button').click(function () {
         localStorage.setItem('animation_log', JSON.stringify([]));
         message_handler('Animation window opened.')
-        work.fadeIn()
+        work.fadeIn(fade_duration)
     })
 
     $('#close_button').click(function () {
@@ -31,7 +36,7 @@ $(document).ready(function () {
         }
 
         message_handler('Animation window closed.')
-        work.fadeOut()
+        work.fadeOut(fade_duration)
 
         let animation_log = $('#animation_log')
         animation_log.innerHTML = ''
@@ -84,8 +89,8 @@ function animate() {
         let max_x = anim[0].clientWidth - parseFloat(square.css('width'))
         let max_y = anim[0].clientHeight - parseFloat(square.css('height'))
 
-        let x = (Math.cos(angle * Math.PI / 180) * dist) + parseFloat(square.css('left'));
-        let y = (Math.sin(angle * Math.PI / 180) * dist) + parseFloat(square.css('top'));
+        let x = (Math.cos(angle * Math.PI / 180) * step) + parseFloat(square.css('left'));
+        let y = (Math.sin(angle * Math.PI / 180) * step) + parseFloat(square.css('top'));
 
         if (x <= 0) {
             angle -= 90
@@ -108,7 +113,7 @@ function animate() {
 
         square.animate({left: `${x}px`, top: `${y}px`});
         if (fade_out) {
-            square.fadeOut(1500)
+            square.fadeOut(fade_duration)
         }
         console.log(x + '  ' + y)
     }
@@ -126,5 +131,24 @@ function message_handler(message) {
 
 function round_two(num) {
     return Math.round(num * 100) / 100
+}
+
+function get_properties() {
+    $.get("api/animation", function (properties) {
+        if (properties.hasOwnProperty('error')) {
+            alert("GET animation properties error. Will be used default properties. Received message: " + properties['error'])
+        } else {
+            $('#buttons').css('background-color', properties.buttons_color)
+            $('#messages').css('background-color', properties.messages_color)
+            fade_duration = properties.fade
+            anim.css('background', properties.background)
+            anim.css('background-size', '32px 32px')
+            speed = parseInt(properties.speed)
+            step = parseInt(properties.step)
+            if (properties.rendering === 'canvas') {
+                canvas_rendering = true
+            }
+        }
+    });
 }
 
