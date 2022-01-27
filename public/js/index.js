@@ -1,4 +1,4 @@
-let start_button, stop_button, reload_button, anim, square
+let start_button, stop_button, reload_button, anim, square, canvas
 //
 let started = false
 //
@@ -7,21 +7,24 @@ let step = 20
 let speed = 500
 let canvas_rendering = false
 //
-let fade_duration = 'slow'
+let x = 0, y = 0
+//
+let fade_duration = 1000
 
-$(document).ready(function () {
-    let work = $('#work')
+$(document).ready(async function () {
+    let work = $('#work').hide()
     anim = $('#anim')
+    canvas = $('#canvas')
     start_button = $('#start_button')
     stop_button = $('#stop_button').hide()
     reload_button = $('#reload_button').hide()
     square = $('#square')
 
-    get_properties()
+    await get_properties()
 
+    work.show()
     move_square_to_start()
     animate()
-
     work.hide()
 
     $('#play_button').click(function () {
@@ -69,18 +72,50 @@ $(document).ready(function () {
     })
 });
 
+function update_canvas() {
+    canvas.attr('width', anim[0].clientWidth)
+    canvas.attr('height', anim[0].clientHeight)
+
+    canvas.animateLayer('square', {
+        x: x, y: y
+    }, speed / 2);
+}
+
+function update_square() {
+    square.animate({left: `${x}px`, top: `${y}px`}, speed / 2);
+}
+
 function move_square_to_start() {
     angle = Math.random() * 180
-    let start_x = Math.random() * (anim[0].clientWidth - parseFloat(square.css('width')))
-    console.log(angle + '  ' + anim[0].clientWidth)
-    square.animate({'left': start_x + 'px', 'top': 0}, 0).show()
+    x = Math.random() * (anim[0].clientWidth - parseFloat(square.css('width')))
+    y = 0
 
+    if (canvas_rendering) {
+        canvas.show()
+        square.hide()
+
+        canvas.clearCanvas().drawRect({
+            layer: true,
+            name: 'square',
+            fillStyle: 'red',
+            x: 0, y: 0,
+            width: 10,
+            height: 10,
+            fromCenter: false
+        });
+
+        update_canvas()
+    } else {
+        canvas.hide()
+        square.show()
+        update_square()
+    }
 }
 
 function animate() {
     let id = setInterval(frame, speed);
 
-    function frame() {
+    async function frame() {
         let fade_out = false
         if (!started) {
             return
@@ -89,8 +124,8 @@ function animate() {
         let max_x = anim[0].clientWidth - parseFloat(square.css('width'))
         let max_y = anim[0].clientHeight - parseFloat(square.css('height'))
 
-        let x = (Math.cos(angle * Math.PI / 180) * step) + parseFloat(square.css('left'));
-        let y = (Math.sin(angle * Math.PI / 180) * step) + parseFloat(square.css('top'));
+        x = (Math.cos(angle * Math.PI / 180) * step) + x;
+        y = (Math.sin(angle * Math.PI / 180) * step) + y;
 
         if (x <= 0) {
             angle -= 90
@@ -111,10 +146,20 @@ function animate() {
             reload_button.show()
         }
 
-        square.animate({left: `${x}px`, top: `${y}px`});
-        if (fade_out) {
-            square.fadeOut(fade_duration)
+        if (canvas_rendering) {
+            update_canvas()
+        } else {
+            update_square()
         }
+
+        if (fade_out) {
+            if (canvas_rendering) {
+                canvas.fadeOut(fade_duration * 3)
+            } else {
+                square.fadeOut(fade_duration * 3)
+            }
+        }
+
         console.log(x + '  ' + y)
     }
 }
@@ -133,14 +178,14 @@ function round_two(num) {
     return Math.round(num * 100) / 100
 }
 
-function get_properties() {
-    $.get("api/animation", function (properties) {
+async function get_properties() {
+    await $.get("api/animation", function (properties) {
         if (properties.hasOwnProperty('error')) {
             alert("GET animation properties error. Will be used default properties. Received message: " + properties['error'])
         } else {
             $('#buttons').css('background-color', properties.buttons_color)
             $('#messages').css('background-color', properties.messages_color)
-            fade_duration = properties.fade
+            fade_duration = parseInt(properties.fade)
             anim.css('background', properties.background)
             anim.css('background-size', '32px 32px')
             speed = parseInt(properties.speed)
@@ -151,4 +196,5 @@ function get_properties() {
         }
     });
 }
+
 

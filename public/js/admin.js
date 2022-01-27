@@ -4,7 +4,7 @@ $(document).ready(function () {
             {
                 buttons_color: $('#buttons_color').val(),
                 messages_color: $('#messages_color').val(),
-                fade: $('#fade').val(),
+                fade: parseInt($('#fade').val()),
                 background: $('#background').val(),
                 speed: parseInt($('#speed').val()),
                 step: parseInt($('#step').val()),

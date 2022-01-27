@@ -71,6 +71,10 @@
     overflow: visible;
 }
 
+#canvas {
+    overflow: visible;
+}
+
 #square {
     width: 10px;
     height: 10px;

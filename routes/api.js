@@ -26,7 +26,7 @@ if (!fs.existsSync(properties_file)) {
     let default_properties = {
         buttons_color: 'pink',
         messages_color: 'yellow',
-        fade: 'fast',
+        fade: 1000,
         background: default_texture,
         speed: 500,
         step: 20,
@@ -89,7 +89,7 @@ router.post('/update-animation', function (req, res) {
     let properties = {
         buttons_color: req.body.buttons_color,
         messages_color: req.body.messages_color,
-        fade: req.body.fade,
+        fade: parseInt(req.body.fade),
         background: req.body.background,
         speed: parseInt(req.body.speed),
         step: parseInt(req.body.step),
