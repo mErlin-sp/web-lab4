@@ -4,7 +4,7 @@
     <meta charset='UTF-8'>
     <title>{{title}}</title>
     <link rel='stylesheet' type='text/css' href='css/styles.css'>
-    <link rel='stylesheet' type='text/css' href='css/work.css'>
+    <link rel='stylesheet' type='text/css' href='css/table.css'>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
@@ -23,11 +23,11 @@
 </div>
 <div id='main'>
     <div id='second' class="main">{{lorem_ipsum}}</div>
-    <div id='third' class="main"></div>
+    <div id='third' class="main">
+        <div style="text-align: center;"><h1></h1></div>
+    </div>
     <div id='fourth' class="main">{{lorem_ipsum}}</div>
     <div id='fifth' class="main">
-        <input type="button" value="Play" id='play_button'/>
-        <div id='animation_log' class="white"></div>
     </div>
     <div id='sixth' class="main">{{lorem_ipsum}}</div>
 </div>
@@ -38,25 +38,6 @@
             <h2 style='text-align: center; width: 100%; margin:0; margin-left: 10px; ' class="vertical_center">Heading
                 2 </h2>
         </div>
-    </div>
-</div>
-<div id='work'>
-    <div id='controls'>
-        <div id='buttons'>
-            <!--            <div style="text-align: center;">Buttons</div>-->
-            <div style="text-align: center;">
-                <input type='button' value='Close' id='close_button'/>
-                <input type='button' value='Start' id='start_button'/>
-                <input type='button' value='Stop' id='stop_button'/>
-                <input type='button' value='Reload' id='reload_button'/>
-            </div>
-        </div>
-        <div id='messages'>
-            <div id='message' style="text-align: center;"></div>
-        </div>
-    </div>
-    <div id='anim'>
-        <div id='square'></div>
     </div>
 </div>
 </body>
